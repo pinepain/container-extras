@@ -69,27 +69,42 @@ class ContainerHydrator
      */
     protected function createDefinition(ContainerInterface $container, $options, $alias)
     {
-        $concrete  = $this->resolveConcrete($options);
-        $share     = false;
-        $arguments = [];
-        $methods   = [];
+        $concrete = $this->resolveConcrete($options);
 
-        if (is_array($options)) {
-            $share     = !empty($options['share']);
-            $arguments = (array_key_exists('arguments', $options)) ? (array)$options['arguments'] : [];
-            $methods   = (array_key_exists('methods', $options)) ? (array)$options['methods'] : [];
-        }
+        $share = is_array($options) && !empty($options['share']);
 
         // define in the container, with constructor arguments and method calls
         $definition = $container->add($alias, $concrete, $share);
 
         if ($definition instanceof DefinitionInterface) {
-            $definition->withArguments($arguments);
+            $this->addDefinitionArguments($definition, $options);
         }
 
         if ($definition instanceof ClassDefinition) {
-            $definition->withMethodCalls($methods);
+            $this->addDefinitionMethods($definition, $options);
         }
+    }
+
+    protected function addDefinitionArguments(DefinitionInterface $definition, $options)
+    {
+        $arguments = [];
+
+        if (is_array($options)) {
+            $arguments = (array_key_exists('arguments', $options)) ? (array)$options['arguments'] : [];
+        }
+
+        $definition->withArguments($arguments);
+    }
+
+    protected function addDefinitionMethods(ClassDefinition $definition, $options)
+    {
+        $methods = [];
+
+        if (is_array($options)) {
+            $methods = (array_key_exists('methods', $options)) ? (array)$options['methods'] : [];
+        }
+
+        $definition->withMethodCalls($methods);
     }
 
     /**
