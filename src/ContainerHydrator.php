@@ -49,7 +49,12 @@ class ContainerHydrator
             return;
         }
 
-        foreach ($config as $alias => $options) {
+        $this->populateFromTraversable($container, $config);
+    }
+
+    protected function populateFromTraversable($container, $traversable)
+    {
+        foreach ($traversable as $alias => $options) {
             $this->createDefinition($container, $options, $alias);
         }
     }
