@@ -1,0 +1,42 @@
+{
+  "name": "pinepain/container-extras",
+  "description": "Set of useful classes for league/container",
+  "type": "library",
+  "keywords": [
+    "league",
+    "container",
+    "dependency",
+    "injection",
+    "di",
+    "service",
+    "provider",
+    "extras",
+    "config"
+  ],
+  "homepage": "https://github.com/pinepain/container-extras",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bogdan Padalko",
+      "email": "pinepain@gmail.com",
+      "homepage": "https://github.com/pinepain"
+    }
+  ],
+  "require": {
+    "league/container": "^2.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.*",
+    "league/container": "^2.2@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pinepain\\Container\\Extras\\": "./src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pinepain\\Container\\Extras\\Tests\\": "./tests"
+    }
+  }
+}
