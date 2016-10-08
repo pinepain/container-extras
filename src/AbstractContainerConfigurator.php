@@ -22,44 +22,26 @@ use Pinepain\Container\Extras\Exceptions\InvalidConfigException;
 use Traversable;
 
 
-class AliasContainerConfigurator extends AbstractContainerConfigurator
+abstract class AbstractContainerConfigurator implements ContainerConfiguratorInterface
 {
     /**
-     * @var AliasContainerInterface
+     * {@configure}
      */
-    private $container;
-
-    /**
-     * @param AliasContainerInterface $container
-     */
-    public function __construct(AliasContainerInterface $container)
+    public function configure($config)
     {
-        $this->container = $container;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureMany($config)
-    {
-        foreach ($config as $alias => $concrete) {
-            if (!is_string($concrete)) {
-                continue;
-            }
-
-            $this->configureOne($alias, $concrete);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOne($alias, $concrete)
-    {
-        if (!is_string($alias) || !is_string($concrete)) {
-            throw new InvalidConfigException('Alias and concrete should be strings');
+        if (!is_array($config) && !($config instanceof Traversable)) {
+            throw new InvalidConfigException(
+                'You can only load definitions from an array or an object that implements Traversable interface.'
+            );
         }
 
-        $this->container->add($alias, $concrete);
+        $this->configureMany($config);
     }
+
+    /**
+     * Load configuration
+     *
+     * @param array|Traversable $config
+     */
+    abstract protected function configureMany($config);
 }

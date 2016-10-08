@@ -26,11 +26,9 @@ namespace Pinepain\Container\Extras;
 use League\Container\ContainerInterface;
 use League\Container\Definition\ClassDefinition;
 use League\Container\Definition\DefinitionInterface;
-use Pinepain\Container\Extras\Exceptions\InvalidConfigException;
-use Traversable;
 
 
-class LeagueContainerConfigurator implements ContainerConfiguratorInterface
+class LeagueContainerConfigurator extends AbstractContainerConfigurator
 {
     /**
      * @var ContainerInterface
@@ -48,14 +46,8 @@ class LeagueContainerConfigurator implements ContainerConfiguratorInterface
     /**
      * {@inheritdoc}
      */
-    public function configure($config)
+    protected function configureMany($config)
     {
-        if (!is_array($config) && !($config instanceof Traversable)) {
-            throw new InvalidConfigException(
-                'You can only load definitions from an array or an object that implements Traversable interface.'
-            );
-        }
-
         foreach ($config as $alias => $options) {
             $this->configureOne($alias, $options);
         }

@@ -28,7 +28,6 @@ use League\Container\ContainerInterface;
 use League\Container\Definition\ClassDefinition;
 use League\Container\Definition\DefinitionInterface;
 use Pinepain\Container\Extras\LeagueContainerConfigurator;
-use stdClass;
 
 
 class LeagueContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
@@ -58,32 +57,6 @@ class LeagueContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
         $container->expects($this->never())->method('add');
 
         $loader->configure($config);
-    }
-
-    public function testPopulateWithTraversable()
-    {
-        $container = $this->getContainerMock();
-        $loader    = new LeagueContainerConfigurator($container);
-
-        /** @var \Iterator | \PHPUnit_Framework_MockObject_MockObject $config */
-        $config = $this->getMockBuilder('\Iterator')->getMockForAbstractClass();
-
-        $container->expects($this->never())->method('add');
-
-        $loader->configure($config);
-    }
-
-    /**
-     * @expectedException \Pinepain\Container\Extras\Exceptions\InvalidConfigException
-     * @expectedExceptionMessage You can only load definitions from an array or an object that implements Traversable
-     *                           interface.
-     */
-    public function testPopulateFromNotArrayNorTraversable()
-    {
-        $container = $this->getContainerMock();
-        $loader    = new LeagueContainerConfigurator($container);
-
-        $loader->configure(new stdClass());
     }
 
     public function testAddingScalar()
