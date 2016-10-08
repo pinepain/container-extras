@@ -26,9 +26,9 @@ interface AliasContainerInterface extends ImmutableContainerInterface
     /**
      * Add entry alias.
      *
-     * @param string $alias Entry alias.
-     * @param string $id    Identifier of the entry to look for.
+     * @param string $alias    Entry alias.
+     * @param string $concrete Identifier of the entry to look for.
      *
      */
-    public function add($alias, $id);
+    public function add($alias, $concrete);
 }

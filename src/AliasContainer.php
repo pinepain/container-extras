@@ -37,9 +37,9 @@ class AliasContainer implements ImmutableContainerAwareInterface, AliasContainer
     /**
      * {@inheritdoc}
      */
-    public function add($alias, $id)
+    public function add($alias, $concrete)
     {
-        $this->aliases[$alias] = $id;
+        $this->aliases[$alias] = $concrete;
     }
 
     /**
