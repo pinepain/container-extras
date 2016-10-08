@@ -18,15 +18,13 @@
 namespace Pinepain\Container\Extras;
 
 
-use League\Container\Argument\ArgumentResolverInterface;
-use League\Container\Argument\ArgumentResolverTrait;
 use League\Container\Exception\NotFoundException;
+use League\Container\ImmutableContainerAwareInterface;
 use League\Container\ImmutableContainerAwareTrait;
 
 
-class AliasContainer implements ArgumentResolverInterface, AliasContainerInterface
+class AliasContainer implements ImmutableContainerAwareInterface, AliasContainerInterface
 {
-    use ArgumentResolverTrait;
     use ImmutableContainerAwareTrait;
 
     private $aliases = [];
