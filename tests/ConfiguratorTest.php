@@ -27,11 +27,11 @@ namespace Pinepain\Container\Extras\Tests;
 use League\Container\ContainerInterface;
 use League\Container\Definition\ClassDefinition;
 use League\Container\Definition\DefinitionInterface;
-use Pinepain\Container\Extras\ContainerHydrator;
+use Pinepain\Container\Extras\Configurator;
 use stdClass;
 
 
-class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
+class ConfiguratorTest extends \PHPUnit_Framework_TestCase
 {
     protected $configArray = [
         'League\Container\Test\Asset\Foo' => [
@@ -50,82 +50,78 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
 
     public function testPopulateWithEmpty()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->never())->method('add');
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testPopulateWithTraversable()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         /** @var \Iterator | \PHPUnit_Framework_MockObject_MockObject $config */
         $config = $this->getMockBuilder('\Iterator')->getMockForAbstractClass();
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->never())->method('add');
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Pinepain\Container\Extras\Exceptions\InvalidConfigException
      * @expectedExceptionMessage You can only load definitions from an array or an object that implements Traversable
      *                           interface.
      */
     public function testPopulateFromNotArrayNorTraversable()
     {
-        $loader = new ContainerHydrator();
-
         $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
-        $loader->populate($container, new stdClass());
+        $loader->configure(new stdClass());
     }
 
     public function testAddingScalar()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'key' => 'value',
         ];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->once())
                   ->method('add')
                   ->with('key', 'value', false);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testAddingConcrete()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => null,
         ];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->once())
                   ->method('add')
                   ->with('TestInterface', null, false);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testSharingConcrete()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => [
@@ -133,35 +129,33 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->once())
                   ->method('add')
                   ->with('TestInterface', null, true);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testAddingAlias()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => 'Test',
         ];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->once())
                   ->method('add')
                   ->with('TestInterface', 'Test', false);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testAddingShared()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => [
@@ -170,18 +164,17 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->once())
                   ->method('add')
                   ->with('TestInterface', 'Test', true);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testAddingAliasWithArgument()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => [
@@ -189,8 +182,6 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
                 'arguments' => ['test', 'arguments'],
             ],
         ];
-
-        $container = $this->getContainerMock();
 
         $definition = $this->getDefinitionMock();
 
@@ -204,13 +195,14 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
                   ->with('TestInterface', 'TestWithArguments', false)
                   ->willReturn($definition);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
 
     public function testAddingAliasWithMethodCalls()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => [
@@ -220,8 +212,6 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-
-        $container = $this->getContainerMock();
 
         $definition = $this->getClassDefinitionMock();
 
@@ -235,12 +225,13 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
                   ->with('TestInterface', 'TestWithMethodCalls', false)
                   ->willReturn($definition);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testAddingAliasWithArgumentsAndMethodCalls()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $config = [
             'TestInterface' => [
@@ -251,8 +242,6 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ];
-
-        $container = $this->getContainerMock();
 
         $definition = $this->getClassDefinitionMock();
 
@@ -271,12 +260,13 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
                   ->with('TestInterface', 'TestWithArgumentsAndMethodCalls', false)
                   ->willReturn($definition);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     public function testAddDefinition()
     {
-        $loader = new ContainerHydrator();
+        $container = $this->getContainerMock();
+        $loader    = new Configurator($container);
 
         $definition = $this->getClassDefinitionMock();
 
@@ -286,13 +276,11 @@ class ContainerHydratorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $container = $this->getContainerMock();
-
         $container->expects($this->once())
                   ->method('add')
                   ->with('TestInterface', $definition, false);
 
-        $loader->populate($container, $config);
+        $loader->configure($config);
     }
 
     /**

@@ -26,21 +26,32 @@ namespace Pinepain\Container\Extras;
 use League\Container\ContainerInterface;
 use League\Container\Definition\ClassDefinition;
 use League\Container\Definition\DefinitionInterface;
+use Pinepain\Container\Extras\Exceptions\InvalidConfigException;
 use Traversable;
 
 
-class ContainerHydrator
+class Configurator implements ConfiguratorInterface
 {
     /**
-     * Populate the container with items from config
-     *
-     * @param ContainerInterface $container
-     * @param  array|Traversable $config
+     * @var ContainerInterface
      */
-    public function populate(ContainerInterface $container, $config)
+    private $container;
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configure($config)
     {
         if (!is_array($config) && !($config instanceof Traversable)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidConfigException(
                 'You can only load definitions from an array or an object that implements Traversable interface.'
             );
         }
@@ -49,10 +60,14 @@ class ContainerHydrator
             return;
         }
 
-        $this->populateFromTraversable($container, $config);
+        $this->populateFromTraversable($this->container, $config);
     }
 
-    protected function populateFromTraversable($container, $traversable)
+    /**
+     * @param ContainerInterface  $container
+     * @param array | Traversable $traversable
+     */
+    protected function populateFromTraversable(ContainerInterface $container, $traversable)
     {
         foreach ($traversable as $alias => $options) {
             $this->createDefinition($container, $options, $alias);
@@ -130,4 +145,6 @@ class ContainerHydrator
         // must be either a Closure or arbitrary type so we just bind that
         return $concrete;
     }
+
+
 }
