@@ -30,7 +30,7 @@ use Pinepain\Container\Extras\Exceptions\InvalidConfigException;
 use Traversable;
 
 
-class Configurator implements ConfiguratorInterface
+class ContainerConfigurator implements ContainerConfiguratorInterface
 {
     /**
      * @var ContainerInterface
@@ -56,40 +56,22 @@ class Configurator implements ConfiguratorInterface
             );
         }
 
-        if (empty($config)) {
-            return;
-        }
-
-        $this->populateFromTraversable($this->container, $config);
-    }
-
-    /**
-     * @param ContainerInterface  $container
-     * @param array | Traversable $traversable
-     */
-    protected function populateFromTraversable(ContainerInterface $container, $traversable)
-    {
-        foreach ($traversable as $alias => $options) {
-            $this->createDefinition($container, $options, $alias);
+        foreach ($config as $alias => $options) {
+            $this->configureOne($alias, $options);
         }
     }
 
     /**
-     * Create a definition from a config entry
-     *
-     * @param ContainerInterface $container
-     * @param  mixed             $options
-     * @param  string            $alias
-     *
+     * {@inheritdoc}
      */
-    protected function createDefinition(ContainerInterface $container, $options, $alias)
+    public function configureOne($alias, $options)
     {
         $concrete = $this->resolveConcrete($options);
 
         $share = is_array($options) && !empty($options['share']);
 
         // define in the container, with constructor arguments and method calls
-        $definition = $container->add($alias, $concrete, $share);
+        $definition = $this->container->add($alias, $concrete, $share);
 
         if ($definition instanceof DefinitionInterface) {
             $this->addDefinitionArguments($definition, $options);
@@ -100,6 +82,10 @@ class Configurator implements ConfiguratorInterface
         }
     }
 
+    /**
+     * @param DefinitionInterface $definition
+     * @param                     $options
+     */
     protected function addDefinitionArguments(DefinitionInterface $definition, $options)
     {
         $arguments = [];
@@ -111,6 +97,10 @@ class Configurator implements ConfiguratorInterface
         $definition->withArguments($arguments);
     }
 
+    /**
+     * @param ClassDefinition $definition
+     * @param                 $options
+     */
     protected function addDefinitionMethods(ClassDefinition $definition, $options)
     {
         $methods = [];

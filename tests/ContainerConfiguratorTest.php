@@ -27,11 +27,11 @@ namespace Pinepain\Container\Extras\Tests;
 use League\Container\ContainerInterface;
 use League\Container\Definition\ClassDefinition;
 use League\Container\Definition\DefinitionInterface;
-use Pinepain\Container\Extras\Configurator;
+use Pinepain\Container\Extras\ContainerConfigurator;
 use stdClass;
 
 
-class ConfiguratorTest extends \PHPUnit_Framework_TestCase
+class ContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
 {
     protected $configArray = [
         'League\Container\Test\Asset\Foo' => [
@@ -51,7 +51,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testPopulateWithEmpty()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [];
 
@@ -63,7 +63,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testPopulateWithTraversable()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         /** @var \Iterator | \PHPUnit_Framework_MockObject_MockObject $config */
         $config = $this->getMockBuilder('\Iterator')->getMockForAbstractClass();
@@ -81,7 +81,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testPopulateFromNotArrayNorTraversable()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $loader->configure(new stdClass());
     }
@@ -89,7 +89,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingScalar()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'key' => 'value',
@@ -105,7 +105,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingConcrete()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => null,
@@ -121,7 +121,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testSharingConcrete()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => [
@@ -139,7 +139,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingAlias()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => 'Test',
@@ -155,7 +155,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingShared()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => [
@@ -174,7 +174,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingAliasWithArgument()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => [
@@ -202,7 +202,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingAliasWithMethodCalls()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => [
@@ -231,7 +231,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddingAliasWithArgumentsAndMethodCalls()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $config = [
             'TestInterface' => [
@@ -266,7 +266,7 @@ class ConfiguratorTest extends \PHPUnit_Framework_TestCase
     public function testAddDefinition()
     {
         $container = $this->getContainerMock();
-        $loader    = new Configurator($container);
+        $loader    = new ContainerConfigurator($container);
 
         $definition = $this->getClassDefinitionMock();
 

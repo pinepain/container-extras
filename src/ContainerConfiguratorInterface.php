@@ -22,7 +22,7 @@ use Pinepain\Container\Extras\Exceptions\InvalidConfigException;
 use Traversable;
 
 
-interface ConfiguratorInterface
+interface ContainerConfiguratorInterface
 {
     /**
      * @param array|Traversable $config
@@ -30,4 +30,12 @@ interface ConfiguratorInterface
      * @throws InvalidConfigException
      */
     public function configure($config);
+
+    /**
+     * Add a definition from a single config entry
+     *
+     * @param  string $alias
+     * @param  mixed  $options
+     */
+    public function configureOne($alias, $options);
 }
