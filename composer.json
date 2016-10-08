@@ -1,5 +1,5 @@
 {
-  "name": "pinepain/container-extras",
+  "name": "pinepain/league-container-extras",
   "description": "Set of useful classes for league/container",
   "type": "library",
   "keywords": [
@@ -31,12 +31,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Pinepain\\Container\\Extras\\": "./src"
+      "Pinepain\\League\\Container\\Extras\\": "./src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Pinepain\\Container\\Extras\\Tests\\": "./tests"
+      "Pinepain\\League\\Container\\Extras\\Tests\\": "./tests"
     }
   }
 }

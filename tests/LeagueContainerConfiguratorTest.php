@@ -1,18 +1,19 @@
 <?php
 
 /*
-  +----------------------------------------------------------------------+
-  | This file is part of the pinepain/container-extras PHP library.      |
-  |                                                                      |
-  | Copyright (c) 2015-2016 Bogdan Padalko <pinepain@gmail.com>          |
-  |                                                                      |
-  | Licensed under the MIT license: http://opensource.org/licenses/MIT   |
-  |                                                                      |
-  | For the full copyright and license information, please view the      |
-  | LICENSE file that was distributed with this source or visit          |
-  | http://opensource.org/licenses/MIT                                   |
-  +----------------------------------------------------------------------+
+  +------------------------------------------------------------------------+
+  | This file is part of the pinepain/league-container-extras PHP library. |
+  |                                                                        |
+  | Copyright (c) 2015-2016 Bogdan Padalko <pinepain@gmail.com>            |
+  |                                                                        |
+  | Licensed under the MIT license: http://opensource.org/licenses/MIT     |
+  |                                                                        |
+  | For the full copyright and license information, please view the        |
+  | LICENSE file that was distributed with this source or visit            |
+  | http://opensource.org/licenses/MIT                                     |
+  +------------------------------------------------------------------------+
 */
+
 
 /* Based on League\Container\Test\ContainerTest
  * v1.x class (https://github.com/thephpleague/container/blob/1.x/tests/ContainerTest.php)
@@ -21,13 +22,13 @@
  */
 
 
-namespace Pinepain\Container\Extras\Tests;
+namespace Pinepain\League\Container\Extras\Tests;
 
 
 use League\Container\ContainerInterface;
 use League\Container\Definition\ClassDefinition;
 use League\Container\Definition\DefinitionInterface;
-use Pinepain\Container\Extras\LeagueContainerConfigurator;
+use Pinepain\League\Container\Extras\LeagueContainerConfigurator;
 
 
 class LeagueContainerConfiguratorTest extends \PHPUnit_Framework_TestCase

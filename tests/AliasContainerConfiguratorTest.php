@@ -1,25 +1,25 @@
 <?php
 
 /*
-  +----------------------------------------------------------------------+
-  | This file is part of the pinepain/container-extras PHP library.      |
-  |                                                                      |
-  | Copyright (c) 2015-2016 Bogdan Padalko <pinepain@gmail.com>          |
-  |                                                                      |
-  | Licensed under the MIT license: http://opensource.org/licenses/MIT   |
-  |                                                                      |
-  | For the full copyright and license information, please view the      |
-  | LICENSE file that was distributed with this source or visit          |
-  | http://opensource.org/licenses/MIT                                   |
-  +----------------------------------------------------------------------+
+  +------------------------------------------------------------------------+
+  | This file is part of the pinepain/league-container-extras PHP library. |
+  |                                                                        |
+  | Copyright (c) 2015-2016 Bogdan Padalko <pinepain@gmail.com>            |
+  |                                                                        |
+  | Licensed under the MIT license: http://opensource.org/licenses/MIT     |
+  |                                                                        |
+  | For the full copyright and license information, please view the        |
+  | LICENSE file that was distributed with this source or visit            |
+  | http://opensource.org/licenses/MIT                                     |
+  +------------------------------------------------------------------------+
 */
 
 
-namespace Pinepain\Container\Extras\Tests;
+namespace Pinepain\League\Container\Extras\Tests;
 
 
-use Pinepain\Container\Extras\AliasContainerConfigurator;
-use Pinepain\Container\Extras\AliasContainerInterface;
+use Pinepain\League\Container\Extras\AliasContainerConfigurator;
+use Pinepain\League\Container\Extras\AliasContainerInterface;
 
 
 class AliasContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
@@ -72,7 +72,7 @@ class AliasContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Pinepain\Container\Extras\Exceptions\InvalidConfigException
+     * @expectedException \Pinepain\League\Container\Extras\Exceptions\InvalidConfigException
      * @expectedExceptionMessage Alias and concrete should be strings
      */
     public function testConfigureOneWithNonStringAlias()
@@ -84,7 +84,7 @@ class AliasContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Pinepain\Container\Extras\Exceptions\InvalidConfigException
+     * @expectedException \Pinepain\League\Container\Extras\Exceptions\InvalidConfigException
      * @expectedExceptionMessage Alias and concrete should be strings
      */
     public function testConfigureOneWithNonStringConcrete()
@@ -96,7 +96,7 @@ class AliasContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Pinepain\Container\Extras\Exceptions\InvalidConfigException
+     * @expectedException \Pinepain\League\Container\Extras\Exceptions\InvalidConfigException
      * @expectedExceptionMessage Alias and concrete should be strings
      */
     public function testConfigureOneWithBothNonString()
@@ -112,6 +112,6 @@ class AliasContainerConfiguratorTest extends \PHPUnit_Framework_TestCase
      */
     public function getContainerMock()
     {
-        return $this->getMockBuilder('\Pinepain\Container\Extras\AliasContainerInterface')->getMockForAbstractClass();
+        return $this->getMockBuilder('\Pinepain\League\Container\Extras\AliasContainerInterface')->getMockForAbstractClass();
     }
 }

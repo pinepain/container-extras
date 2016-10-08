@@ -1,8 +1,8 @@
 # [league/container](https://github.com/thephpleague/container) extras
 
-[![Build Status](https://travis-ci.org/pinepain/container-extras.svg)](https://travis-ci.org/pinepain/container-extras)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pinepain/container-extras/badges/quality-score.png)](https://scrutinizer-ci.com/g/pinepain/container-extras)
-[![Code Coverage](https://scrutinizer-ci.com/g/pinepain/container-extras/badges/coverage.png)](https://scrutinizer-ci.com/g/pinepain/container-extras)
+[![Build Status](https://travis-ci.org/pinepain/league-container-extras.svg)](https://travis-ci.org/pinepain/league-container-extras)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pinepain/league-container-extras/badges/quality-score.png)](https://scrutinizer-ci.com/g/pinepain/league-container-extras)
+[![Code Coverage](https://scrutinizer-ci.com/g/pinepain/league-container-extras/badges/coverage.png)](https://scrutinizer-ci.com/g/pinepain/league-container-extras)
 
 # About
 
@@ -11,7 +11,7 @@ This library provides a of useful classes for [league/container](https://github.
 
 # Installation:
 
-`composer require pinepain/container-extras 0.*`
+`composer require pinepain/league-container-extras 0.*`
 
 # Examples:
 
@@ -28,4 +28,4 @@ and [other contributors](https://github.com/thephpleague/container/contributors)
 
 Copyright (c) 2015-2016 Bogdan Padalko &lt;pinepain@gmail.com&gt;
 
-[container-extras](https://github.com/pinepain/container-extras) PHP library is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+[league-container-extras](https://github.com/pinepain/league-container-extras) PHP library is licensed under the [MIT license](http://opensource.org/licenses/MIT).
