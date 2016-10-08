@@ -30,7 +30,7 @@ use Pinepain\Container\Extras\Exceptions\InvalidConfigException;
 use Traversable;
 
 
-class ContainerConfigurator implements ContainerConfiguratorInterface
+class LeagueContainerConfigurator implements ContainerConfiguratorInterface
 {
     /**
      * @var ContainerInterface
