@@ -1,3 +1,6 @@
+WARNING: This project is UNSUPPORTED and ABANDONED
+==================================================
+
 # [league/container](https://github.com/thephpleague/container) extras
 
 [![Build Status](https://travis-ci.org/pinepain/league-container-extras.svg)](https://travis-ci.org/pinepain/league-container-extras)
